@@ -23,6 +23,8 @@ public partial class Complain
 
     public bool IsAnon { get; set; }
 
+    public int Category { get; set; }
+
     public virtual ICollection<Entry> Entries { get; set; } = new List<Entry>();
 
     public virtual User FromNavigation { get; set; } = null!;

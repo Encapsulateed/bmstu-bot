@@ -19,6 +19,7 @@ namespace bmstu_bot.Types
                     }
                     catch (DbUpdateException ex)
                     {
+                        Console.WriteLine(ex);
                         Console.WriteLine($"Exeption in Entry.cs\nFunction: Entry.Add()\n\n");
                     }
                 }

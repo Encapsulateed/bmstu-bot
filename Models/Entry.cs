@@ -13,7 +13,5 @@ public partial class Entry
 
     public int Id { get; set; }
 
-    public virtual Admin AdminChatNavigation { get; set; } = null!;
-
     public virtual Complain Complain { get; set; } = null!;
 }

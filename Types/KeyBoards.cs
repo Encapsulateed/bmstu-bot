@@ -52,7 +52,7 @@ namespace bmstu_bot.Types
 
             new[]
             {
-                InlineKeyboardButton.WithCallbackData("Назад","ASK_FIO")
+                InlineKeyboardButton.WithCallbackData("Назад","NEW_USER")
             }
         });
 
@@ -63,7 +63,7 @@ namespace bmstu_bot.Types
             {
                 InlineKeyboardButton.WithCallbackData("Да","ASK_COMPLAIN")
             },
-             new[]
+            new[]
             {
                 InlineKeyboardButton.WithCallbackData("Нет","ASK_FIO")
             },
@@ -72,6 +72,58 @@ namespace bmstu_bot.Types
                 InlineKeyboardButton.WithCallbackData("Назад","NEW_USER")
             }
         });
-        
+        public static InlineKeyboardMarkup complainCategorySelection = new InlineKeyboardMarkup(new[]
+        {
+            new[]
+            {
+                InlineKeyboardButton.WithCallbackData("Учёба","SET_COMPLAIN_CATEGORY 0")
+            },
+             new[]
+            {
+                InlineKeyboardButton.WithCallbackData("Общежитие","SET_COMPLAIN_CATEGORY 1")
+            }
+             ,
+             new[]
+            {
+                InlineKeyboardButton.WithCallbackData("Питание","SET_COMPLAIN_CATEGORY 2")
+            }
+             ,
+             new[]
+            {
+                InlineKeyboardButton.WithCallbackData("Медицина","SET_COMPLAIN_CATEGORY 3")
+             }
+             ,
+             new[]
+            {
+                InlineKeyboardButton.WithCallbackData("Военная кафедра","SET_COMPLAIN_CATEGORY 4")
+            }
+              ,
+             new[]
+            {
+                InlineKeyboardButton.WithCallbackData("Поступление","SET_COMPLAIN_CATEGORY 5")
+            },
+                
+             new[]
+            {
+                InlineKeyboardButton.WithCallbackData("Документы","SET_COMPLAIN_CATEGORY 6")
+            }
+             ,  new[]
+            {
+                InlineKeyboardButton.WithCallbackData("Стипендия и социальные выплаты","SET_COMPLAIN_CATEGORY 7")
+            }
+            ,  new[]
+            {
+                InlineKeyboardButton.WithCallbackData("Внеучебная деятельность","SET_COMPLAIN_CATEGORY 8")
+            }, 
+            new[]
+            {
+                InlineKeyboardButton.WithCallbackData("Другое","SET_COMPLAIN_CATEGORY 9")
+            },
+             new[]
+            {
+                InlineKeyboardButton.WithCallbackData("Назад","NEW_USER")
+            }
+        });
+
     }
 }

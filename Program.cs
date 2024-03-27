@@ -13,11 +13,13 @@ global using bmstu_bot.Bot;
 global using bmstu_bot.Strings;
 global using bmstu_bot.Types;
 global using System.Text.RegularExpressions;
+global using System.Text.Json;
+
 
 try
 {
 
-    await Bot.Start();
+      await Bot.Start();
 }
 catch (Exception ex)
 {

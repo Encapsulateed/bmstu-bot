@@ -24,8 +24,8 @@ public partial class BmstuBotContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseNpgsql(Tokens.SqlConnection);
-
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=bmstu-bot;Username=postgres;Password=Griver2070;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -50,6 +50,7 @@ public partial class BmstuBotContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("admin");
             entity.Property(e => e.Answer).HasColumnName("answer");
+            entity.Property(e => e.Category).HasColumnName("category");
             entity.Property(e => e.Date)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("date");
@@ -74,11 +75,6 @@ public partial class BmstuBotContext : DbContext
             entity.Property(e => e.ComplainId).HasColumnName("complainId");
             entity.Property(e => e.MessageId).HasColumnName("messageId");
 
-            entity.HasOne(d => d.AdminChatNavigation).WithMany(p => p.Entries)
-                .HasForeignKey(d => d.AdminChat)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("Entries_adminChat_fkey");
-
             entity.HasOne(d => d.Complain).WithMany(p => p.Entries)
                 .HasForeignKey(d => d.ComplainId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -99,6 +95,7 @@ public partial class BmstuBotContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("bmstu_group ");
             entity.Property(e => e.ComandLine).HasMaxLength(255);
+            entity.Property(e => e.ComplainCategory).HasColumnName("complain_category");
             entity.Property(e => e.ComplainType).HasColumnName("complain_type");
             entity.Property(e => e.Fio).HasMaxLength(255);
             entity.Property(e => e.TgLink)

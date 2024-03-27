@@ -1,4 +1,6 @@
 ﻿
+using Telegram.Bot;
+
 namespace bmstu_bot.Bot
 {
     internal class QueryExecutor
@@ -16,21 +18,38 @@ namespace bmstu_bot.Bot
                 {
                     await user.Add();
 
-
                     await bot.SendTextMessageAsync(chatId, Messages.AskMessageType, replyMarkup: KeyBoards.AskMessageTypeKeyBoard);
-
 
                 }
                 if (query.StartsWith("SET_MESSAGE_TYPE"))
                 {
-                    await bot.SendTextMessageAsync(chatId, Messages.isAnonimus, replyMarkup: KeyBoards.anonKeyBoard);
-
-
+                    await bot.SendTextMessageAsync(chatId, Messages.AskComplainCategory, replyMarkup: KeyBoards.complainCategorySelection);
+                  
                     int type = int.Parse(query.Split(' ')[1]);
                     user.user.ComplainType = type;
                     await user.Update();
 
+                }
+                if(query.StartsWith("SET_COMPLAIN_CATEGORY"))
+                {
 
+                    int category = int.Parse(query.Split(' ')[1]);
+
+
+                    if (category == 5)
+                    {
+                        
+                        await bot.SendTextMessageAsync(chatId, Messages.redirect_to_VK, replyMarkup: KeyBoards.complainCategorySelection);
+
+                    }
+                    else
+                    {
+                        await bot.SendTextMessageAsync(chatId, Messages.isAnonimus, replyMarkup: KeyBoards.anonKeyBoard);
+
+                        user.user.ComplainCategory = category;
+                        await user.Update();
+                    }
+            
                 }
                 if (query == "ASK_FIO")
                 {
@@ -61,15 +80,13 @@ namespace bmstu_bot.Bot
 
                     user.user.ComandLine = "ASK_GROUP";
 
-
-
                     await user.Update();
                 }
                 else if(query == "ASK_COMPLAIN")
                 {
                     user.user.ComandLine = "ASK_COMPLAIN";
 
-                    bool isAnon = user.user.Anonim ?? true;
+                    bool isAnon = user.user.Fio == null ? true:false;
 
                     var backKeyBoard = KeyBoards.BackToGroup;
 

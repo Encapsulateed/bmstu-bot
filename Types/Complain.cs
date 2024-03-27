@@ -1,6 +1,7 @@
 ﻿
 
 using bmstu_bot.Bot;
+using bmstu_bot.Models;
 
 namespace bmstu_bot.Types
 {
@@ -75,7 +76,7 @@ namespace bmstu_bot.Types
 
         }
 
-        public Task Send(TelegramBotClient bot, string generatedMessage)
+        public Task Send(TelegramBotClient bot, string generatedMessage,long chat_for_sent)
         {
             return Task.Run(async () =>
             {
@@ -83,14 +84,11 @@ namespace bmstu_bot.Types
                 {
                     try
                     {
-                        var allAdmins = db.Admins;
+                        var msg = await bot.SendTextMessageAsync(chat_for_sent, generatedMessage, parseMode: ParseMode.Markdown);
+                        var entry = new Types.Entry { entry = new Models.Entry() { AdminChat = chat_for_sent, ComplainId = this.compalin.Id, MessageId = msg.MessageId } };
+                        await entry.Add();
 
-                        await allAdmins.ForEachAsync(async admin =>
-                        {
-                            var msg = await bot.SendTextMessageAsync(admin.ChatId, generatedMessage, parseMode: ParseMode.Markdown);
-                            var entry = new Types.Entry { entry = new Models.Entry() { AdminChat = admin.ChatId, ComplainId = this.compalin.Id, MessageId = msg.MessageId } };
-                            await entry.Add();
-                        });
+                 
                     }
                     catch (DbUpdateException ex)
                     {

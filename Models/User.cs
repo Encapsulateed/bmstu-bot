@@ -19,5 +19,7 @@ public partial class User
 
     public int ComplainType { get; set; }
 
+    public int ComplainCategory { get; set; }
+
     public virtual ICollection<Complain> Complains { get; set; } = new List<Complain>();
 }

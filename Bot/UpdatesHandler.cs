@@ -7,10 +7,14 @@ namespace bmstu_bot.Bot
         {
             Console.WriteLine(DateTime.Now.ToShortTimeString());
             Console.WriteLine($"{update.Type}\n");
+
+
             if (update.Type == UpdateType.Message)
             {
                 if (string.IsNullOrEmpty(update.Message.Text) == false)
                     Console.WriteLine($"Message: {update.Message.Text}\nFrom: {update.Message.From.Id}");
+
+
 
             }
             else
@@ -60,7 +64,7 @@ namespace bmstu_bot.Bot
             var link = message.From.Username != null ? "@" + message.From.Username : "";
 
 
-            await ComandExecutor.Execute(message_text, chatId, bot,link, reply: replyMsg);
+            await ComandExecutor.Execute(message_text, chatId, bot, link, group_id: message.Chat.Id, reply: replyMsg) ;
 
         }
         private static async Task CallBackHandler(Update update, TelegramBotClient bot)
