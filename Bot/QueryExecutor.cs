@@ -53,7 +53,7 @@ namespace bmstu_bot.Bot
                 }
                 if (query == "ASK_FIO")
                 {
-                    await bot.SendTextMessageAsync(chatId, Messages.AskFio);
+                    await bot.SendTextMessageAsync(chatId, Messages.AskFio,replyMarkup: KeyBoards.BackToIsAnon);
                     user.user.ComandLine = "ASK_FIO";
                     await user.Update();
                 }
