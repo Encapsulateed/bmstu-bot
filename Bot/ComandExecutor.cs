@@ -17,9 +17,10 @@ namespace bmstu_bot.Bot
                     admin.admin = new Models.Admin() { ChatId = chatId, Link = link };
 
                     await admin.Get();
-               
-                    if (admin is not null)
+                   
+                    if (admin.admin is not null )
                     {
+                        
                         try
                         {
                             var entry = Entry.GetEntryByMessageIdAndAdmin(group_id, reply.MessageId);
@@ -62,10 +63,7 @@ namespace bmstu_bot.Bot
                             }
 
 
-
-
-
-                            string generatedResponse = $"Получен ответ на Ваше обращение от *{complain.compalin.Date}*\n_{reply.Text.Split("-----------------")[1]}_\n{prev_chat}\n🔹_Ответ Администратора_:\n_{message}_";
+                            string generatedResponse = $"Получен ответ на Ваше обращение от *{complain.compalin.Date}*\n{prev_chat}\n_{reply.Text.Split("-----------------")[1]}_\n🔹_Ответ Администратора_:\n_{message}_";
 
 
                             InlineKeyboardMarkup btn = new InlineKeyboardMarkup(new[]
@@ -92,6 +90,10 @@ namespace bmstu_bot.Bot
                         {
                             Console.WriteLine(ex);
                         }
+                    }
+                    else
+                    {
+                        await bot.SendTextMessageAsync(group_id, Messages.NotAllowed);
                     }
                 }
 

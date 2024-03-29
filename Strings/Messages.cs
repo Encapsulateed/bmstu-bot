@@ -17,6 +17,6 @@ namespace bmstu_bot.Strings
 
         public static string AskComplainCategory = "Выберите категорию обращения";
         public static string redirect_to_VK = "Еблан иди нахуй, в группу ВК ";
-
+        public static string NotAllowed = "Не админ - НУ И ПОШЁЛ НАХУЙ";
     }
 }

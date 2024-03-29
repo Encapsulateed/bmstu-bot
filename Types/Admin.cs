@@ -3,7 +3,7 @@ namespace bmstu_bot.Types
 {
     internal class Admin
     {
-        public Models.Admin admin { get; set; }
+        public Models.Admin? admin { get; set; }
 
 
 
@@ -57,7 +57,7 @@ namespace bmstu_bot.Types
                 {
                     try
                     {
-                        var admin = db.Admins.Where(admin => admin.ChatId == this.admin.ChatId).FirstOrDefault();
+                        var admin = db.Admins.Where(admin => admin.ChatId == this.admin.ChatId ).First();
                         if (admin is not null)
                         {
                             this.admin = admin;
@@ -66,6 +66,7 @@ namespace bmstu_bot.Types
                     catch (Exception ex)
                     {
                         Console.WriteLine($"No such user exeption in Admin.cs\nFunction: Admin.Get()\n\n {ex}\n\n");
+                        this.admin = null;
                     }
 
                 }
