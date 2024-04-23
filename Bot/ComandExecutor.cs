@@ -172,7 +172,7 @@ namespace bmstu_bot.Bot
 
                         if (banned)
                         {
-                            await bot.SendTextMessageAsync(chatId, "попоси хуя убок");
+                            await bot.SendTextMessageAsync(chatId, Messages.BadWord);
                             return;
                         }
 
