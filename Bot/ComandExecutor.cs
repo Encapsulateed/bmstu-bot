@@ -50,7 +50,7 @@ namespace bmstu_bot.Bot
                                     {
                                         prev_chat += $"\n=====================\n";
 
-                                        prev_chat += $"*Сообщение*: _{sub_complain.compalin.Message.Replace("🔹Текст обращения:", "")}_\n*Ответ*: {sub_complain.compalin.Answer.Replace("🔹Текст обращения:", "")}\n*Администратор*: {sub_complain.compalin.Admin}";
+                                        prev_chat += $"*Сообщение*: _{sub_complain.compalin.Message.Replace("🔹Текст обращения:", "")}_\n*Ответ*: {sub_complain.compalin.Answer.Replace("🔹Текст обращения:", "")}";
                                         prev_chat += $"\n=====================\n";
 
                                     }
