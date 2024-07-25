@@ -165,8 +165,19 @@ namespace bmstu_bot.Bot
                     }
                     else if (comand == "ASK_COMPLAIN" || comand.StartsWith("CONTINUE_COMPLAIN"))
                     {
-                        List<string> banned_words = System.IO.File.ReadAllText("words.txt").Split('\n').Select(item => item.ToLower()).ToList();
-                        string lower_case_msg = message.ToLower();
+                        string lower_case_msg = string.Empty;
+                        List<string> banned_words = new List<string>();
+                        try
+                        {
+                            banned_words = System.IO.File.ReadAllText("words.txt").Split('\n').Select(item => item.ToLower()).ToList();
+                            lower_case_msg = message.ToLower();
+                        }
+                        catch (Exception file_ex)
+                        {
+                            Console.WriteLine(file_ex.Message);
+                            Console.WriteLine(file_ex);
+                        }
+
 
                         bool banned = banned_words.Any(word => lower_case_msg.Contains(word));
 
@@ -183,47 +194,50 @@ namespace bmstu_bot.Bot
 
                         Dictionary<int, long> admins_chats = new Dictionary<int, long>() { { 0, Tokens.PROBLEMS_CHAT }, { 1, Tokens.QUESTIONS_CHAT }, { 2, Tokens.OFFERS_CHAT } };
 
-                        int? prev_id = null;
+
                         try
                         {
-                            prev_id = int.Parse(comand.Split(' ')[1]);
-
-                        }
-                        catch (Exception)
-                        {
-                        }
-
-                        if (user.user.Anonim == null)
-                            user.user.Anonim = true;
 
 
-                        var complain = new Complain()
-                        {
-                            compalin = new Models.Complain()
+                            int? prev_id = null;
+                            try
                             {
-                                Message = message,
-                                From = chatId,
-                                Date = DateTime.Now,
-                                Type = user.user.ComplainType,
-                                Prev = prev_id,
-                                IsAnon = (bool)user.user.Anonim,
-                                Category = user.user.ComplainCategory
+                                prev_id = int.Parse(comand.Split(' ')[1]);
+
                             }
-                        };
-                        complain.compalin.Id = await complain.Add();
+                            catch (Exception)
+                            {
+                            }
+
+                            if (user.user.Anonim == null)
+                                user.user.Anonim = true;
+
+
+                            var complain = new Complain()
+                            {
+                                compalin = new Models.Complain()
+                                {
+                                    Message = message,
+                                    From = chatId,
+                                    Date = DateTime.Now,
+                                    Type = user.user.ComplainType,
+                                    Prev = prev_id,
+                                    IsAnon = (bool)user.user.Anonim,
+                                    Category = user.user.ComplainCategory
+                                }
+                            };
+                            complain.compalin.Id = await complain.Add();
 
 
 
 
-                        var backKeyBoard = KeyBoards.BackToGroup;
-                        bool isAnon = complain.compalin.IsAnon;
+                            var backKeyBoard = KeyBoards.BackToGroup;
+                            bool isAnon = complain.compalin.IsAnon;
 
 
 
-                        await bot.SendTextMessageAsync(chatId, Messages.WaitMsg, replyMarkup: KeyBoards.startKey);
+                            await bot.SendTextMessageAsync(chatId, Messages.WaitMsg, replyMarkup: KeyBoards.startKey);
 
-                        try
-                        {
                             string prev_chat = null;
                             string type = "";
                             var chat = await complain.GetChat();
