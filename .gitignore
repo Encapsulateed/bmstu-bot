@@ -3,3 +3,4 @@
 /.vs/
 Tokens.cs
 *.txt
+.env

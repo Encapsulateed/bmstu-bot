@@ -24,7 +24,7 @@ public partial class BmstuBotContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseNpgsql(Tokens.SqlConnection);
+        => optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("SQL_CONN")!);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

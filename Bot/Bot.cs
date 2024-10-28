@@ -3,7 +3,7 @@ namespace bmstu_bot.Bot
 {
     internal class Bot
     {
-        private static TelegramBotClient bot = new TelegramBotClient(Strings.Tokens.TgToken);
+        private static TelegramBotClient bot = new TelegramBotClient(Environment.GetEnvironmentVariable("BOT_TOKEN")!);
         public static async Task Start()
         {
             Console.WriteLine("Запущен бот " + bot.GetMeAsync().Result.FirstName);

@@ -14,12 +14,13 @@ global using bmstu_bot.Strings;
 global using bmstu_bot.Types;
 global using System.Text.RegularExpressions;
 global using System.Text.Json;
+using DotNetEnv;
 
 
 try
 {
-
-      await Bot.Start();
+    Env.Load("..//..//..//.env");
+    await Bot.Start();
 }
 catch (Exception ex)
 {
